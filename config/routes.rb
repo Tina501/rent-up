@@ -6,13 +6,14 @@ Rails.application.routes.draw do
     resources :bookings, only: [:create]
   end
 
-  resources :bookings, only: [] do
+  resources :bookings do
     member do
-      patch 'accept'
-      patch 'decline'
+      patch :accept
+      patch :decline
     end
   end
 
-  get 'dashboard', to: 'dashboard#index'
+  resource :dashboard, only: [:show]
+
   get '/spaces', to: 'spaces#index', as: 'search_spaces'
 end

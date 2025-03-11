@@ -20,6 +20,7 @@ class SpacesController < ApplicationController
 
   def show
     # Show individual space details
+    @booking = Booking.new
   end
 
   def new
@@ -33,7 +34,7 @@ class SpacesController < ApplicationController
     if @space.save
       redirect_to spaces_path, notice: 'Space was successfully created.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 

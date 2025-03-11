@@ -21,14 +21,15 @@ class BookingsController < ApplicationController
 
   # Accept a booking request
   def accept
-    @booking.update(status: 'accepted')
-    redirect_to dashboard_path, notice: 'Booking accepted.'
+    @booking = Booking.find(params[:id])
+    @booking.accepted!
+    redirect_to dashboard_path, notice: "Booking accepted successfully."
   end
 
-  # Decline a booking request
   def decline
-    @booking.update(status: 'declined')
-    redirect_to dashboard_path, notice: 'Booking declined.'
+    @booking = Booking.find(params[:id])
+    @booking.declined!
+    redirect_to dashboard_path, alert: "Booking declined."
   end
 
   private
