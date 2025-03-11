@@ -1,2 +1,25 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="container-fluid bg-light">
+  <!-- Header Section -->
+  <div class="row text-center py-5">
+    <div class="col-12">
+      <h1 class="display-4 text-primary font-weight-bold">Welcome to RentUP!</h1>
+      <p class="lead text-muted">Find the perfect space for your meetings and events.</p>
+    </div>
+  </div>
+
+  <!-- Main Content Section -->
+  <div class="row justify-content-center py-5">
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-lg border-light rounded">
+        <img src="https://via.placeholder.com/500x300?text=Meeting+Room+Image" class="card-img-top" alt="Space Image">
+        <div class="card-body">
+          <h5 class="card-title text-center">Available Meeting Spaces</h5>
+          <p class="card-text text-center">Browse our diverse selection of meeting rooms and event spaces for any occasion.</p>
+          <div class="text-center">
+            <%= link_to 'Browse Spaces', spaces_path, class: 'btn btn-primary btn-lg' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

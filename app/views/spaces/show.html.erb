@@ -1,0 +1,32 @@
+<div class="container mt-4">
+  <h2><%= @space.name %></h2>
+  <img src="<%= @space.image_url %>" class="img-fluid mb-3">
+  <p>Location: <%= @space.location %></p>
+  <p>Capacity: <%= @space.capacity %></p>
+  <p>Price: €<%= @space.price %>/hr</p>
+  <p>Rating: ⭐️ <%= @space.rating %></p>
+
+ <!-- Book Now Button -->
+  <%= link_to "Book Now", new_space_booking_path(@space), class: "btn btn-primary mt-2" %>
+
+  <h3>Book This Space</h3>
+  <%= form_with(model: [@space, @booking], local: true) do |f| %>
+    <div class="mb-3">
+      <%= f.label :user_name, "Your Name" %>
+      <%= f.text_field :user_name, class: "form-control" %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :user_email, "Your Email" %>
+      <%= f.email_field :user_email, class: "form-control" %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :date, "Booking Date" %>
+      <%= f.date_field :date, class: "form-control" %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :time, "Booking Time" %>
+      <%= f.text_field :time, class: "form-control" %>
+    </div>
+    <%= f.submit "Book Now", class: "btn btn-success" %>
+  <% end %>
+</div>

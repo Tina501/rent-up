@@ -1,0 +1,27 @@
+<div class="container mt-5">
+  <h2>Book <%= @space.name %></h2>
+
+  <%= form_with model: [@space, @booking], local: true do |form| %>
+    <div class="mb-3">
+      <%= form.label :user_name, "Your Name" %>
+      <%= form.text_field :user_name, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :user_email, "Your Email" %>
+      <%= form.email_field :user_email, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :start_date, "Start Date" %>
+      <%= form.date_field :start_date, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :end_date, "End Date" %>
+      <%= form.date_field :end_date, class: "form-control" %>
+    </div>
+
+    <%= form.submit "Book Now", class: "btn btn-success" %>
+  <% end %>
+</div>
