@@ -24,7 +24,7 @@
                                     <div class="card-body">
                                         <h4 class="card-title"><%= space.name %></h4>
                                         <p class="card-text"><%= space.description %></p>
-                                        <p><strong>Location:</strong> <%= space.location %></p>
+                                        <p><strong>address:</strong> <%= space.address %></p>
                                         <div class="d-flex gap-2">
                                             <a href="<%= edit_space_path(space) %>" class="btn btn-outline-secondary btn-sm">Edit</a>
                                             <a href="<%= space_path(space) %>" data-method="delete" data-confirm="Are you sure?" class="btn btn-outline-danger btn-sm">Delete</a>

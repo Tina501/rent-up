@@ -1,6 +1,9 @@
 <div class="container mt-4">
+  <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= cl_image_path @space.photo.key %>);">
+</div>
+
   <h2><%= @space.name %></h2>
-  <p>Location: <%= @space.location %></p>
+  <p>address: <%= @space.address %></p>
 
   <p>Price: €<%= @space.price %>/hr</p>
 

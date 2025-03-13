@@ -5,16 +5,22 @@ class SpacesController < ApplicationController
   def index
     # Initial space query (fetch all spaces)
     @spaces = Space.all
-
     # If search query for space name is present, filter by name
-    @spaces = @spaces.where('name LIKE ?', "%#{params[:query]}%") if params[:query].present?
+    @spaces = @spaces.where('name ILIKE ?', "%#{params[:query]}%") if params[:query].present?
 
-    # If location is provided, filter spaces by location
-    @spaces = @spaces.where('location LIKE ?', "%#{params[:location]}%") if params[:location].present?
+    # If address is provided, filter spaces by address
+    @spaces = @spaces.where('address ILIKE ?', "%#{params[:address]}%") if params[:address].present?
 
     # If start and end dates are provided, filter spaces that are available in that period
     if params[:start_date].present? && params[:end_date].present?
       @spaces = @spaces.joins(:bookings).where("bookings.start_date <= ? AND bookings.end_date >= ?", params[:end_date], params[:start_date])
+    end
+
+    @markers = @spaces.geocoded.map do |space|
+      {
+        lat: space.latitude,
+        lng: space.longitude
+      }
     end
   end
 
@@ -43,7 +49,7 @@ class SpacesController < ApplicationController
 
   def update
     if @space.update(space_params)
-      redirect_to spaces_path, notice: 'Space was successfully updated.'
+      redirect_to dashboard_path, notice: 'Space was successfully updated.'
     else
       render :edit
     end
@@ -61,6 +67,6 @@ class SpacesController < ApplicationController
   end
 
   def space_params
-    params.require(:space).permit(:name, :description, :location, :price)
+    params.require(:space).permit(:name, :description, :address, :price)
   end
 end

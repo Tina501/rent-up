@@ -1,9 +1,9 @@
-<!-- Search form -->
 <div class="container mb-5">
   <h2 class="text-center mb-4">Search for Your Ideal Space</h2>
+  <!-- Search form -->
   <%= form_with url: spaces_path, method: :get, local: true, class: 'row g-3' do |form| %>
     <div class="col-md-4">
-      <%= form.text_field :location, placeholder: 'Enter location', class: 'form-control', value: params[:location] %>
+      <%= form.text_field :address, placeholder: 'Enter Address', class: 'form-control', value: params[:address] %>
     </div>
     <div class="col-md-3">
       <%= form.date_field :start_date, class: 'form-control', value: params[:start_date] %>
@@ -17,29 +17,32 @@
   <% end %>
 </div>
 
-<!-- Available spaces -->
-<div class="container text-center available-spaces">
-  <h2>Availbale Listings</h2>
+<div class="container-fluid">
+  <div class='row'>
+    <div class="col-6">
+      <!-- Available spaces -->
+      <div class="container text-center available-spaces">
+        <div class="row">
+          <% @spaces.each do |space| %>
+            <div class="col-md-6 mb-4">
+              <div class="card">
+                <%= cl_image_tag space.photo.key, height: '271px', class: "card-img-top object-fit-cover", alt: "City Apartment" %>
+                <div class="card-body">
+                    <h5 class="card-title"><%= space.name %></h5>
+                    <p class="card-text">Address: <%= space.address %></p>
+                    <p class="card-text">Price: €<%= space.price %>/day</p>
+                    <%# <%= link_to 'View Details', space_path(space), class: 'btn btn-primary' %>
 
-  <%= link_to "Create Your Listings", new_space_path, class: "btn btn-success mb-3" %>
-
-  <div class="row">
-    <% @spaces.each do |space| %>
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="https://plus.unsplash.com/premium_photo-1681487144031-d502ea9abefc?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bWVldGluZyUyMHJvb218ZW58MHx8MHx8fDA%3D" height='271px' class="card-img-top object-fit-cover" alt="City Apartment">
-          <div class="card-body">
-              <h5 class="card-title"><%= space.name %></h5>
-              <p class="card-text">Location: <%= space.location %></p>
-              <p class="card-text">Price: €<%= space.price %>/day</p>
-              <%# <%= link_to 'View Details', space_path(space), class: 'btn btn-primary' %>
-              <%=link_to "View space", space_path(space), class: 'btn btn-primary'%>
-              <%=link_to "Edit", edit_space_path(space), class: "btn btn-warning" %>
-              <%=link_to "Delete", space_path(space),
-              data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "btn btn-danger" %>
-          </div>
+                    <%=link_to "View space", space_path(space), class: 'btn btn-primary'%>
+                </div>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
-    <% end %>
+    </div>
+    <div class="col-6" height='min-height: 100vh;'>
+      <div data-controller="map" data-map-api-key-value="<%= ENV['MAPBOX_API_KEY']%>" data-map-markers-value="<%= @markers.to_json %>" style="height: 500px; width: 100%; position: sticky; top: 0px"></div>
+    </div>
   </div>
 </div>

@@ -13,7 +13,7 @@ class BookingsController < ApplicationController
     @booking.user = current_user  # Assuming you're associating bookings with the current user
 
     if @booking.save
-      redirect_to @space, notice: 'Booking was successfully created.'
+      redirect_to dashboard_path, notice: 'Booking was successfully created.'
     else
       render 'spaces/show'  # Renders the space page again if booking creation fails
     end
