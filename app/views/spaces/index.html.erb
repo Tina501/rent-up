@@ -31,6 +31,7 @@
                     <h5 class="card-title"><%= space.name %></h5>
                     <p class="card-text">Address: <%= space.address %></p>
                     <p class="card-text">Price: €<%= space.price %>/day</p>
+                    <p class="card-text">At <%= space.user.email %> place</p>
                     <%# <%= link_to 'View Details', space_path(space), class: 'btn btn-primary' %>
 
                     <%=link_to "View space", space_path(space), class: 'btn btn-primary'%>

@@ -21,14 +21,17 @@
                         <% @spaces.each do |space| %>
                             <div class="col-md-6 mb-3">
                                 <div class="card border-0 shadow-sm">
+                                  <% if space.photo.present? %>
+                                    <%= cl_image_tag space.photo.key, height: '271px', class: "card-img-top object-fit-cover", alt: "#{space.name}" %>
+                                  <% end %>
                                     <div class="card-body">
-                                        <h4 class="card-title"><%= space.name %></h4>
-                                        <p class="card-text"><%= space.description %></p>
-                                        <p><strong>address:</strong> <%= space.address %></p>
-                                        <div class="d-flex gap-2">
-                                            <a href="<%= edit_space_path(space) %>" class="btn btn-outline-secondary btn-sm">Edit</a>
-                                            <a href="<%= space_path(space) %>" data-method="delete" data-confirm="Are you sure?" class="btn btn-outline-danger btn-sm">Delete</a>
-                                        </div>
+                                      <h4 class="card-title"><%= space.name %></h4>
+                                      <p class="card-text"><%= space.description %></p>
+                                      <p><strong>address:</strong> <%= space.address %></p>
+                                      <div class="d-flex gap-2">
+                                          <a href="<%= edit_space_path(space) %>" class="btn btn-outline-secondary btn-sm">Edit</a>
+                                          <a href="<%= space_path(space) %>" data-method="delete" data-confirm="Are you sure?" class="btn btn-outline-danger btn-sm">Delete</a>
+                                      </div>
                                     </div>
                                 </div>
                             </div>
@@ -42,33 +45,61 @@
 
         <!-- Your Bookings Section -->
         <div class="card shadow-sm">
-            <div class="card-header bg-secondary text-white">
-                <h2 class="mb-0">Your Bookings</h2>
-            </div>
-            <div class="card-body">
-                <% if @bookings.any? %>
-                    <% @bookings.each do |booking| %>
-                        <div class="card mb-3 border-0 shadow-sm">
-                            <div class="card-body">
-                                <p><strong>Booked for:</strong> <%= booking.space.name %></p>
-                                <p><strong>Start Date:</strong> <%= booking.start_date %></p>
-                                <p><strong>End Date:</strong> <%= booking.end_date %></p>
-                                <p><strong>Status:</strong> <span class="badge bg-info text-dark"><%= booking.status %></span></p>
+          <div class="card-header bg-secondary text-white">
+            <h2 class="mb-0">Your Bookings (as client)</h2>
+          </div>
+          <div class="card-body">
+              <% if @bookings_as_client.any? %>
+                  <% @bookings_as_client.each do |booking| %>
+                      <div class="card mb-3 border-0 shadow-sm">
+                      <% if booking.space.photo.present? %>
+                            <%= cl_image_tag booking.space.photo.key, height: '200px', class: "card-img-top object-fit-cover", alt: "#{booking.space.name}"%>
+                          <% end %>
+                          <div class="card-body">
+                              <p><strong>Booked for:</strong> <%= booking.space.name %></p>
+                              <p><strong>Start Date:</strong> <%= booking.start_date %></p>
+                              <p><strong>End Date:</strong> <%= booking.end_date %></p>
+                              <p><strong>Status:</strong> <span class="badge bg-info text-dark"><%= booking.status %></span></p>
 
-                                <% if booking.pending? %>
-                                  <div class="d-flex gap-2">
-                                    <%= button_to "Accept", accept_booking_path(booking), method: :patch, class: "btn btn-outline-success btn-sm" %>
-                                    <%= button_to "Decline", decline_booking_path(booking), method: :patch, class: "btn btn-outline-danger btn-sm" %>
-                                  </div>
-                                <% end %>
+                          </div>
+                      </div>
+                  <% end %>
+              <% else %>
+                  <p class="text-muted">You have no bookings at the moment.</p>
+              <% end %>
+          </div>
+        </div>
+        <div class="card shadow-sm">
+          <div class="card-header bg-secondary text-white">
+            <h2 class="mb-0">Your Bookings (as owner)</h2>
+          </div>
+          <div class="card-body">
+              <% if @bookings_as_owner.any? %>
+                  <% @bookings_as_owner.each do |booking| %>
+                      <div class="card mb-3 border-0 shadow-sm">
+                          <% if booking.space.photo.present? %>
+                            <%= cl_image_tag booking.space.photo.key, height: '200px', class: "card-img-top object-fit-cover", alt: "#{booking.space.name}" %>
+                          <% end %>
+                          <div class="card-body">
+                              <p><strong>Booked for:</strong> <%= booking.space.name %></p>
+                              <p><strong>Start Date:</strong> <%= booking.start_date %></p>
+                              <p><strong>End Date:</strong> <%= booking.end_date %></p>
+                              <p><strong>Status:</strong> <span class="badge bg-info text-dark"><%= booking.status %></span></p>
 
-                            </div>
-                        </div>
-                    <% end %>
-                <% else %>
-                    <p class="text-muted">You have no bookings at the moment.</p>
-                <% end %>
-            </div>
+                              <% if booking.pending? %>
+                                <div class="d-flex gap-2">
+                                  <%= button_to "Accept", accept_booking_path(booking), method: :patch, class: "btn btn-outline-success btn-sm" %>
+                                  <%= button_to "Decline", decline_booking_path(booking), method: :patch, class: "btn btn-outline-danger btn-sm" %>
+                                </div>
+                              <% end %>
+
+                          </div>
+                      </div>
+                  <% end %>
+              <% else %>
+                  <p class="text-muted">You have no bookings at the moment.</p>
+              <% end %>
+          </div>
         </div>
     </div>
 

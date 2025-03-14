@@ -10,6 +10,9 @@
         <%= link_to "Dashboard", dashboard_path, class: "nav-link px-2 text-secondary" %>
       </ul>
 
+
+
+      <div class="nav-link px-2 text-secondary"><%= current_user.email %></div>
       <%= link_to "Create Your Listings", new_space_path, class: "btn btn-success mb-3" %>
 
     </div>

@@ -3,6 +3,7 @@ class DashboardsController < ApplicationController
 
   def show
     @spaces = current_user.spaces
-    @bookings = current_user.bookings
+    @bookings_as_owner = current_user.bookings_as_owner
+    @bookings_as_client = current_user.bookings_as_client
   end
 end
